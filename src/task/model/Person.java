@@ -13,13 +13,11 @@ public class Person implements Comparable<Person> {
         this.pesel = pesel;
     }
 
-    // Overriding toString() method to determine how to display data
     @Override
     public String toString() {
         return firstName + ", " + lastName + ", " + birthYear + ", " + pesel;
     }
 
-    // Overriding compareTo() method to determine how to sort data (ascending by last name)
     @Override
     public int compareTo(Person person) {
         int primary = lastName.compareTo(person.lastName);
@@ -27,7 +25,5 @@ public class Person implements Comparable<Person> {
                 : lastName.compareTo(person.lastName);
     }
 
-    // This method is used in PersonComparatorInverseBirthYear
-    // We have to get the birth year to sort it descending
     public int getBirthYear() { return birthYear; }
 }

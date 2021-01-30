@@ -11,13 +11,10 @@ public class PersonsData {
     }
 
     public void manageData() {
-        // Using Scanner to get input from user
         Scanner input = new Scanner(System.in);
 
-        // User input
         int userInput = -1;
 
-        // Available actions
         System.out.println("Available actions \n" +
                 "0 - exit \n" +
                 "1 - show data from file \n" +
@@ -35,14 +32,11 @@ public class PersonsData {
                         System.out.println("Bye");
                         break;
                     case 1:
-                        // After overriding the toString method in Person class,
-                        // here we can just print the data to the console
                         System.out.println("Data from file:");
                         data.forEach(System.out::println);
                         chooseNext();
                         break;
                     case 2:
-                        // Create a copy of the original data (sortedData) to not alter the original array after sorting
                         ArrayList<Person> sortedByLastName = new ArrayList<>(data);
                         Collections.sort(sortedByLastName);
                         System.out.println("Data sorted by last name, ascending:");
@@ -50,9 +44,7 @@ public class PersonsData {
                         chooseNext();
                         break;
                     case 3:
-                        // Create a copy of the original data (sortedData) to not alter the original array after sorting
                         ArrayList<Person> sortedByYear = new ArrayList<>(data);
-                        // Created a custom comparator to sort data by birth year
                         Collections.sort(sortedByYear, new PersonComparatorInverseBirthYear());
                         System.out.println("Data sorted by birth year, descending: ");
                         sortedByYear.forEach(System.out::println);
@@ -103,16 +95,10 @@ public class PersonsData {
 
             String newPerson = newFirstName +","+ newLastName +","+ newBirthYear +","+ newPesel;
 
-            BufferedReader reader = new BufferedReader(new FileReader("data.csv"));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("newData.csv")));
-            while ((line = reader.readLine()) != null) {
-                writer.write(line);
-                writer.newLine();
-            }
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("data.csv"), true));
             writer.write(newPerson);
             writer.newLine();
             writer.close();
-            reader.close();
         } catch (InputMismatchException ime) {
             System.err.println("Invalid input");
         } catch (FileNotFoundException fnfe) {
@@ -120,8 +106,7 @@ public class PersonsData {
         } catch (IOException ioe) {
             System.err.println("I/O error occurred while altering file");
         } finally {
-            System.out.println("Created new file: newData.csv");
-            System.out.println("If no errors occurred, file should store new person data.");
+            System.out.println("If no errors occurred, file data.csv should store new person data.");
         }
     }
 
